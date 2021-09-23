@@ -23,18 +23,17 @@ class Item(Resource):
         return {'message': 'Item not found'}, 404
 
     def post(self, name):
-        if ItemModel.find_by_name(name): #check if item already exists in the database
+        if ItemModel.find_by_name(name):
             return {'message': "An item with name '{}' already exists.".format(name)}, 400
 
-        data = Item.parser.parse_args() #parse through the data to check the price
-        
+        data = Item.parser.parse_args()
+
         item = ItemModel(name, **data)
-        #item = ItemModel(name, data['price'], data['store_id']) #create a JSON of the item
-       
+
         try:
             item.save_to_db()
         except:
-            return {"message": "An error occurred inserting the item."}, 500 #Internal Server Error
+            return {"message": "An error occurred inserting the item."}, 500
 
         return item.json(), 201
 
@@ -47,31 +46,19 @@ class Item(Resource):
 
     def put(self, name):
         data = Item.parser.parse_args()
-        item = ItemModel.find_by_name(name)
-        
-        if item:
-            item.price = data['price']
-        else:
-            item = ItemModel(name, **data)
 
-        item.save_to_db()
-
-        return item.json()
-        '''
-        data = Item.parser.parse_args()
         item = ItemModel.find_by_name(name)
-        
+
         if item is None:
-            item =ItemModel(name, data['price'], data['store_id'])
+            item = ItemModel(name, **data)
         else:
             item.price = data['price']
-        
+
         item.save_to_db()
 
         return item.json()
-        '''
+
 
 class ItemList(Resource):
     def get(self):
         return {'items': [x.json() for x in ItemModel.query.all()]}
-        #return {'items': list(map(lambda x: x.json(), ItemModel.query.all))} #use if working with people who use other programming langauges

@@ -1,2 +1,5 @@
-# REST-API-with-Python-Flask-Restful-and-SQLAlchemy
-A prototype project for building RESTful APIs and SQL database with with python. 
+# Stores REST Api
+
+This is built with Flask, Flask-RESTful, Flask-JWT, and Flask-SQLAlchemy.
+
+Deployed on Heroku.
