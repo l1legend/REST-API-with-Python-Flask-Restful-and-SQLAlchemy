@@ -12,8 +12,8 @@ from resources.store import Store, StoreList
 app = Flask(__name__)
 
 app.config['DEBUG'] = True #testing
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://michael@134.209.194.38:5432/michael"
-#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
+#app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://michael@134.209.194.38:5432/michael"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'jose'
 api = Api(app)
